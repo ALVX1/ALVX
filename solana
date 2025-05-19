@@ -1,0 +1,19 @@
+from solana.rpc.api import Client
+
+# Conexión al cluster de Solana (mainnet-beta, devnet o testnet)
+solana_client = Client("https://api.mainnet-beta.solana.com")
+
+# Dirección pública de la wallet
+wallet_address = "Aa96NbR2jU47k7aquVgVdWa5mae9JwbkegZYJwTwoFBn"
+
+def get_balance(address):
+    try:
+        response = solana_client.get_balance(address)
+        lamports = response["result"]["value"]
+        sol = lamports / 1_000_000_000
+        print(f"Balance for wallet {address}: {sol} SOL")
+    except Exception as e:
+        print("Error getting balance:", e)
+
+if __name__ == "__main__":
+    get_balance(wallet_address)
